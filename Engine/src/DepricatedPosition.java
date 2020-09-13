@@ -38,7 +38,5 @@ public class DepricatedPosition {
         return yellow[x][y];
     }
 
-    /*public byte isWinner(){
-        return
-    }*/
+
 }

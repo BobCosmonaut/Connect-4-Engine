@@ -58,7 +58,7 @@ public class Game {
 
     private void requestMove() {
         System.out.print("Enter the row to drop on: ");
-        int row = Integer.parseInt(scanner.nextLine())-1;
+        int row = Integer.parseInt(scanner.nextLine()) - 1;
         if (!currentPosition.rowIsFull(row)) {
             currentPosition.drop(redsTurn, row);
         }
@@ -70,7 +70,6 @@ public class Game {
                 requestMove();
             } else {
                 currentPosition.drop(true, yellowOpponent.getMove(currentPosition));
-
             }
         } else {
             if (yellowPlayer) {
@@ -81,6 +80,15 @@ public class Game {
         }
         drawPosition();
 
+        byte won = currentPosition.isWinner();
+
+        if (won > 0) {
+            isWon = true;
+            System.out.println("Red won!");
+        } else if (won < 0) {
+            isWon = true;
+            System.out.println("Yellow won!");
+        }
         redsTurn = !redsTurn;
     }
 }
