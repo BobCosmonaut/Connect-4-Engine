@@ -9,5 +9,7 @@ public class Opponent {
     public int getMove(Position position) {
         System.out.println(red?"Red":"Yellow" + " is thinking.");
         return 1;
+
+
     }
 }

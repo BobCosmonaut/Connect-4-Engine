@@ -1,4 +1,3 @@
-import javax.crypto.spec.PSource;
 import java.util.Scanner;
 
 public class Game {
@@ -34,8 +33,8 @@ public class Game {
 
     private void drawPosition() {
         printBorder();
-        for (int i = Position.height - 1; i >= 0; i--) {
-            for (int j = 0; j < Position.width; j++) {
+        for (int i = DepricatedPosition.height - 1; i >= 0; i--) {
+            for (int j = 0; j < DepricatedPosition.width; j++) {
                 if (currentPosition.isRed(j, i)) {
                     System.out.print(redPiece + "  ");
                 } else if (currentPosition.isYellow(j, i)) {
@@ -46,13 +45,12 @@ public class Game {
             }
             System.out.println();
         }
-
         printBorder();
         System.out.println();
     }
 
     private void printBorder() {
-        for (int i = 0; i < Position.width * 3; i++) {
+        for (int i = 0; i < DepricatedPosition.width * 3; i++) {
             System.out.print(border);
         }
         System.out.println();
@@ -71,7 +69,8 @@ public class Game {
             if (redPlayer) {
                 requestMove();
             } else {
-                redOpponent.getMove(currentPosition);
+                currentPosition.drop(true, yellowOpponent.getMove(currentPosition));
+
             }
         } else {
             if (yellowPlayer) {

@@ -1,24 +1,28 @@
 public class Position {
-    private boolean[][] yellow;
-    private boolean[][] red;
-
+    private byte[] red;
+    private byte[] yellow;
     public static final int width = 7, height = 6;
 
     public Position() {
-        yellow = new boolean[width][height];
-        red = new boolean[width][height];
+
+        yellow = new byte[width];
+        red = new byte[width];
     }
 
     public void drop(boolean forRed, int row) {
         for (int i = 0; i < height; i++) {
             if (isEmpty(row, i)) {
-                if (forRed) {
-                    red[row][i] = true;
-                } else {
-                    yellow[row][i] = true;
-                }
+                place(forRed, row, i);
                 break;
             }
+        }
+    }
+
+    private void place(boolean forRed, int x, int y) {
+        if (forRed) {
+            red[x] |= 0x1 << y;
+        } else {
+            yellow[x] |= 0x1 << y;
         }
     }
 
@@ -27,14 +31,14 @@ public class Position {
     }
 
     private boolean isEmpty(int x, int y) {
-        return !yellow[x][y] && !red[x][y];
+        return (red[x] << y == 0) && (yellow[x] << y == 0);
     }
 
     public boolean isRed(int x, int y) {
-        return red[x][y];
+        return (red[x] & 0x01 << y) > 0;
     }
 
     public boolean isYellow(int x, int y) {
-        return yellow[x][y];
+        return (yellow[x] & 0x01 << y) > 0;
     }
 }
