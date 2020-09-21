@@ -69,15 +69,18 @@ public class Game {
             if (redPlayer) {
                 requestMove();
             } else {
-                currentPosition.drop(true, yellowOpponent.getMove(currentPosition));
+                currentPosition.drop(true, redOpponent.getMove(currentPosition));
+                System.out.println("positions generated: " + PositionCell.cellsCreated);
             }
         } else {
             if (yellowPlayer) {
                 requestMove();
             } else {
                 currentPosition.drop(false, yellowOpponent.getMove(currentPosition));
+                System.out.println("positions generated: " + PositionCell.cellsCreated);
             }
         }
+        PositionCell.cellsCreated = 0;
         drawPosition();
 
         byte won = currentPosition.isWinner();

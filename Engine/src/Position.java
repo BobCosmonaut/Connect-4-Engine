@@ -9,6 +9,17 @@ public class Position {
         red = new byte[width];
     }
 
+    public Position(Position parent, int drop, boolean redsMove) {
+        yellow = new byte[width];
+        red = new byte[width];
+
+        for (int i = 0; i < width; i++) {
+            red[i] = parent.getRed()[i];
+            yellow[i] = parent.getYellow()[i];
+        }
+        drop(redsMove, drop);
+    }
+
     public void drop(boolean forRed, int row) {
         for (int i = 0; i < height; i++) {
             if (isEmpty(row, i)) {
@@ -54,7 +65,7 @@ public class Position {
 
     private boolean yellowIsWinner() {
         //horizontal
-        for (int i = 0; i < width - 4; i++) {
+        for (int i = 0; i < width - 3; i++) {
             for (int j = 0; j < height; j++) {
                 if ((yellow[i] & yellow[i + 1] & yellow[i + 2] & yellow[i + 3]) > 0) {
                     return true;
@@ -64,6 +75,8 @@ public class Position {
 
         //vertical
 
+
+        //TODO this can be more efficient
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height - 4; j++) {
                 if (yellow[i] << j >> (height - 1 - 4) == 0x0f) {
@@ -73,7 +86,7 @@ public class Position {
         }
 
 
-        //up right
+        //diagonal
 
         for (int i = 0; i < width - 4; i++) {
             for (int j = 0; j < height - 4; j++) {
@@ -97,7 +110,7 @@ public class Position {
 
     private boolean redIsWinner() {
         //horizontal
-        for (int i = 0; i < width - 4; i++) {
+        for (int i = 0; i < width - 3; i++) {
             for (int j = 0; j < height; j++) {
                 if ((red[i] & red[i + 1] & red[i + 2] & red[i + 3]) > 0) {
                     return true;
@@ -128,8 +141,60 @@ public class Position {
                 }
             }
         }
-
-
         return false;
+    }
+
+    /*public int score() {
+        byte winnings = isWinner();
+
+        if (winnings == 1) {
+            //Red won
+            return Integer.MAX_VALUE;
+        } else if (winnings == -1) {
+            return Integer.MIN_VALUE;
+        } else {
+
+            int score = 0;
+
+            for (int i = 0; i < width - 4; i++) {
+                for (int j = 0; j < height; j++) {
+                    if (((red[i] & 0x1 << j) + red[i + 1] & red[i + 2] & red[i + 3]) > 0) {
+                    }
+                }
+            }
+            //vertical
+
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height - 4; j++) {
+                    if (red[i] << j >> (height - 1 - 4) == 0x0f) {
+                        return true;
+                    }
+                }
+            }
+            for (int i = 0; i < width - 4; i++) {
+                for (int j = 0; j < height - 4; j++) {
+                    if (isRed(i, j) && isRed(i + 1, j + 1) && isRed(i + 2, j + 2) && isRed(i + 3, j + 3)) {
+                        return true;
+                    }
+                }
+            }
+
+            for (int i = width - 1; i > 3; i--) {
+                for (int j = 0; j < height - 4; j++) {
+                    if (isRed(i, j) && isRed(i - 1, j + 1) && isRed(i - 2, j + 2) && isRed(i - 3, j + 3)) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }*/
+
+
+    public byte[] getRed() {
+        return red;
+    }
+
+    public byte[] getYellow() {
+        return yellow;
     }
 }
