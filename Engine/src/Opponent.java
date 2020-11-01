@@ -13,7 +13,7 @@ public class Opponent {
      * @return The row to drop the checker on.
      */
     public int getMove(Position position) {
-        System.out.println(red ? "Red" : "Yellow" + " is thinking.");
+        System.out.println(red ? "Red is thinking." : "Yellow is thinking.");
 
         PositionCell[] subPositions = new PositionCell[Position.width];
 
@@ -31,7 +31,7 @@ public class Opponent {
             for (int i = 0; i < Position.width; i++) {
                 if (subPositions[i] != null) {
                     int testOutcome = subPositions[i].getBestOutcome();
-                    if ((testOutcome > bestOutcome && red) || (testOutcome < bestOutcome && !red)) {
+                    if ((testOutcome >= bestOutcome && red) || (testOutcome <= bestOutcome && !red)) {
                         bestOutcome = testOutcome;
                         bestDrop = i;
                     }
