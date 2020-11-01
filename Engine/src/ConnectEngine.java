@@ -1,8 +1,11 @@
+/**
+ * Author: Caleb Hefty
+ * September 2020
+ */
+
 import java.util.Scanner;
 
 public class ConnectEngine {
-
-
 
     public static void main(String[] args) {
         Game game;

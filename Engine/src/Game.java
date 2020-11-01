@@ -31,6 +31,9 @@ public class Game {
         redsTurn = true;
     }
 
+    /**
+     * Draws the position on the console.
+     */
     private void drawPosition() {
         printBorder();
         for (int i = DepricatedPosition.height - 1; i >= 0; i--) {

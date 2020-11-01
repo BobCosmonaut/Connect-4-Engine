@@ -34,7 +34,7 @@ public class Position {
     }
 
     /**
-     * Drops a checker into the grid.
+     * Drops a checker into the grid at the given row.
      *
      * @param forRed
      * @param row

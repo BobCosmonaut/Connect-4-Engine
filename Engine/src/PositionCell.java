@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 public class PositionCell {
-   // Position parent;
     Position position;
     ArrayList<PositionCell> subPositions;
     byte depth;
@@ -12,7 +11,6 @@ public class PositionCell {
     public PositionCell(Position position, boolean redsMove, byte depth) {
         cellsCreated++;
 
-        //this.parent = parent;
         this.position = position;
         this.depth = depth;
         this.redsMove = redsMove;
@@ -26,7 +24,10 @@ public class PositionCell {
         }
     }
 
-    public void generateSubpositions() {
+    /**
+     * Generates all subpositions for this position.
+     */
+    private void generateSubpositions() {
         for (int i = 0; i < Position.width; i++) {
             if (!position.rowIsFull(i)) {
                 subPositions.add(new PositionCell(new Position(this.position, i, redsMove), !redsMove, (byte) (depth + 1)));
@@ -34,6 +35,10 @@ public class PositionCell {
         }
     }
 
+    /**
+     *
+     * @return The row to drop on that will get the best outcome for the player who moves after this position.
+     */
     public int getBestOutcome() {
         if (subPositions.size() == 0) {
             return score;
