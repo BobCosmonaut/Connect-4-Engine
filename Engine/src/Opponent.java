@@ -7,6 +7,11 @@ public class Opponent {
         this.red = red;
     }
 
+    /**
+     *
+     * @param position The position to move from
+     * @return The row to drop the checker on.
+     */
     public int getMove(Position position) {
         System.out.println(red ? "Red" : "Yellow" + " is thinking.");
 
@@ -15,17 +20,18 @@ public class Opponent {
         if (!multithreading) {
             for (int i = 0; i < Position.width; i++) {
                 if (!position.rowIsFull(i)) {
-                    subPositions[i] = (new PositionCell(position, new Position(position, i, red), red, (byte) 1));
+                    subPositions[i] = (new PositionCell(new Position(position, i, red), !red, (byte) 1));
                 }
             }
 
-            int bestOutcome = Integer.MAX_VALUE - 1;
+            //Sets the best outcome to a worst case scenario...
+            int bestOutcome = red? Integer.MIN_VALUE:Integer.MAX_VALUE;
             int bestDrop = -1;
 
             for (int i = 0; i < Position.width; i++) {
                 if (subPositions[i] != null) {
                     int testOutcome = subPositions[i].getBestOutcome();
-                    if (bestOutcome == Integer.MAX_VALUE - 1 || (testOutcome > bestOutcome && red) || (testOutcome < bestOutcome && !red)) {
+                    if ((testOutcome > bestOutcome && red) || (testOutcome < bestOutcome && !red)) {
                         bestOutcome = testOutcome;
                         bestDrop = i;
                     }

@@ -49,6 +49,10 @@ public class Game {
         System.out.println();
     }
 
+
+    /**
+     * Prints one row of border characters.
+     */
     private void printBorder() {
         for (int i = 0; i < DepricatedPosition.width * 3; i++) {
             System.out.print(border);
@@ -56,6 +60,9 @@ public class Game {
         System.out.println();
     }
 
+    /**
+     * Gets the move from the player.
+     */
     private void requestMove() {
         System.out.print("Enter the row to drop on: ");
         int row = Integer.parseInt(scanner.nextLine()) - 1;
@@ -64,6 +71,9 @@ public class Game {
         }
     }
 
+    /**
+     * Gets the next move of the game, either from the player or the computer.
+     */
     public void getMove() {
         if (redsTurn) {
             if (redPlayer) {
@@ -83,12 +93,11 @@ public class Game {
         PositionCell.cellsCreated = 0;
         drawPosition();
 
-        byte won = currentPosition.isWinner();
-
-        if (won > 0) {
+        //TODO not very efficient
+        if (currentPosition.getWinner() == Winner.Red) {
             isWon = true;
             System.out.println("Red won!");
-        } else if (won < 0) {
+        } else if (currentPosition.getWinner() == Winner.Yellow) {
             isWon = true;
             System.out.println("Yellow won!");
         }
