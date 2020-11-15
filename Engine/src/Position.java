@@ -136,12 +136,12 @@ public class Position {
             }
         }
 
-        for (int i = width - 1; i > 3; i--) {
-            for (int j = 0; j < height - 4; j++) {
-                if (isYellow(i, j) && isYellow(i - 1, j + 1) && isYellow(i - 2, j + 2) && isYellow(i - 3, j + 3)) {
+        for (int i = 0; i < width - 4; i++) {
+            for (int j = height - 1; j > 2; j--) {
+                if (isYellow(i, j) && isYellow(i + 1, j - 1) && isYellow(i + 2, j - 2) && isYellow(i + 3, j - 3)) {
                     return Winner.Yellow;
                 }
-                if (isRed(i, j) && isRed(i - 1, j + 1) && isRed(i - 2, j + 2) && isRed(i - 3, j + 3)) {
+                if (isRed(i, j) && isRed(i + 1, j - 1) && isRed(i + 2, j - 2) && isRed(i + 3, j - 3)) {
                     return Winner.Red;
                 }
             }

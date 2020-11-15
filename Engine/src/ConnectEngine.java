@@ -2,7 +2,6 @@
  * Author: Caleb Hefty
  * September 2020
  */
-
 import java.util.Scanner;
 
 public class ConnectEngine {
@@ -14,16 +13,16 @@ public class ConnectEngine {
         System.out.println("###  Welcome to Connect Engine!  ###");
         System.out.print("Play as first, second, or Neither (F/S/N):");
         String answer = scanner.next();
-        if (answer.contains("F")) {
+        if (answer.toLowerCase().contains("f")) {
             game = new Game(true, false);
-        } else if (answer.contains("S")) {
+        } else if (answer.toLowerCase().contains("s")) {
             game = new Game(false, true);
         } else {
             game = new Game(false, false);
         }
 
         boolean validLevel = false;
-       do {
+        do {
             System.out.print("AI level (1 - 8): ");
             try {
                 int level = Integer.parseInt(scanner.next());
@@ -41,4 +40,5 @@ public class ConnectEngine {
             game.getMove();
         }
     }
+
 }
