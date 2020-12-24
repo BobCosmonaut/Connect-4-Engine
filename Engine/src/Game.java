@@ -67,10 +67,16 @@ public class Game {
      * Gets the move from the player.
      */
     private void requestMove() {
-        System.out.print("Enter the row to drop on: ");
-        int row = Integer.parseInt(scanner.nextLine()) - 1;
-        if (!currentPosition.rowIsFull(row)) {
-            currentPosition.drop(redsTurn, row);
+
+        while (true) {
+            System.out.print("Enter the row to drop on: ");
+            int row = Integer.parseInt(scanner.nextLine()) - 1;
+            if ((row < Position.WIDTH && row > -1) && !currentPosition.rowIsFull(row)) {
+                currentPosition.drop(redsTurn, row);
+                break;
+            } else {
+                System.out.println("Invalid!");
+            }
         }
     }
 
