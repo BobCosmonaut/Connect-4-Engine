@@ -15,7 +15,7 @@ public class PositionCell {
         this.depth = depth;
         this.redsMove = redsMove;
 
-        subPositions = new ArrayList<PositionCell>(Position.width);
+        subPositions = new ArrayList<PositionCell>(Position.WIDTH);
 
         score = position.score();
 
@@ -28,7 +28,7 @@ public class PositionCell {
      * Generates all subpositions for this position.
      */
     private void generateSubpositions() {
-        for (int i = 0; i < Position.width; i++) {
+        for (int i = 0; i < Position.WIDTH; i++) {
             if (!position.rowIsFull(i)) {
                 subPositions.add(new PositionCell(new Position(this.position, i, redsMove), !redsMove, (byte) (depth + 1)));
             }

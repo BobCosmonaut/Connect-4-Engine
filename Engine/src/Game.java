@@ -13,7 +13,7 @@ public class Game {
     public boolean isWon;
     Scanner scanner;
 
-    private final String redPiece = "X", yellowPiece = "@", empty = "-", border = "#";
+    private final String RED_PIECE = "X", YELLOW_PIECE = "@", EMPTY = "-", BORDER = "#";
 
     public Game(boolean redPlayer, boolean yellowPlayer) {
         currentPosition = new Position();
@@ -39,11 +39,11 @@ public class Game {
         for (int i = DepricatedPosition.height - 1; i >= 0; i--) {
             for (int j = 0; j < DepricatedPosition.width; j++) {
                 if (currentPosition.isRed(j, i)) {
-                    System.out.print(redPiece + "  ");
+                    System.out.print(RED_PIECE + "  ");
                 } else if (currentPosition.isYellow(j, i)) {
-                    System.out.print(yellowPiece + "  ");
+                    System.out.print(YELLOW_PIECE + "  ");
                 } else {
-                    System.out.print(empty + "  ");
+                    System.out.print(EMPTY + "  ");
                 }
             }
             System.out.println();
@@ -58,7 +58,7 @@ public class Game {
      */
     private void printBorder() {
         for (int i = 0; i < DepricatedPosition.width * 3; i++) {
-            System.out.print(border);
+            System.out.print(BORDER);
         }
         System.out.println();
     }

@@ -1,7 +1,7 @@
 public class Position {
     private byte[] red;
     private byte[] yellow;
-    public static final int width = 7, height = 6;
+    public static final int WIDTH = 7, HEIGHT = 6;
     public Winner winner;
 
     /**
@@ -9,8 +9,8 @@ public class Position {
      */
     public Position() {
         winner = Winner.None;
-        yellow = new byte[width];
-        red = new byte[width];
+        yellow = new byte[WIDTH];
+        red = new byte[WIDTH];
     }
 
     /**
@@ -21,10 +21,10 @@ public class Position {
      * @param dropColor true if the color of the dropped checker is red.
      */
     public Position(Position parent, int drop, boolean dropColor) {
-        yellow = new byte[width];
-        red = new byte[width];
+        yellow = new byte[WIDTH];
+        red = new byte[WIDTH];
 
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < WIDTH; i++) {
             red[i] = parent.getRed()[i];
             yellow[i] = parent.getYellow()[i];
         }
@@ -40,26 +40,15 @@ public class Position {
      * @param row
      */
     public void drop(boolean forRed, int row) {
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < HEIGHT; i++) {
             if (isEmpty(row, i)) {
-                place(forRed, row, i);
+                if (forRed) {
+                    red[row] |= 0x01 << i;
+                } else {
+                    yellow[row] |= 0x01 << i;
+                }
                 break;
             }
-        }
-    }
-
-    /**
-     * Places a checker at a specific point on the grid. Only to be used by drop().
-     *
-     * @param forRed
-     * @param x
-     * @param y
-     */
-    private void place(boolean forRed, int x, int y) {
-        if (forRed) {
-            red[x] |= 0x01 << y;
-        } else {
-            yellow[x] |= 0x01 << y;
         }
     }
 
@@ -70,7 +59,7 @@ public class Position {
      * @return
      */
     public boolean rowIsFull(int row) {
-        return !isEmpty(row, height - 1);
+        return !isEmpty(row, HEIGHT - 1);
     }
 
     /**
@@ -98,7 +87,7 @@ public class Position {
     public Winner getWinner() {
         //horizontal
 
-        for (int i = 0; i < width - 3; i++) {
+        for (int i = 0; i < WIDTH - 3; i++) {
             if ((red[i] & red[i + 1] & red[i + 2] & red[i + 3]) > 0) {
                 return Winner.Red;
             }
@@ -110,8 +99,8 @@ public class Position {
 
         //vertical
 
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height - 4; j++) {
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT - 4; j++) {
                 if (((yellow[i] >> j) & 0x0f) == 0x0f) {
                     return Winner.Yellow;
                 }
@@ -124,8 +113,8 @@ public class Position {
 
         //diagonal
 
-        for (int i = 0; i < width - 4; i++) {
-            for (int j = 0; j < height - 4; j++) {
+        for (int i = 0; i < WIDTH - 4; i++) {
+            for (int j = 0; j < HEIGHT - 4; j++) {
                 if (isYellow(i, j) && isYellow(i + 1, j + 1) && isYellow(i + 2, j + 2) && isYellow(i + 3, j + 3)) {
                     return Winner.Yellow;
                 }
@@ -136,8 +125,8 @@ public class Position {
             }
         }
 
-        for (int i = 0; i < width - 4; i++) {
-            for (int j = height - 1; j > 2; j--) {
+        for (int i = 0; i < WIDTH - 4; i++) {
+            for (int j = HEIGHT - 1; j > 2; j--) {
                 if (isYellow(i, j) && isYellow(i + 1, j - 1) && isYellow(i + 2, j - 2) && isYellow(i + 3, j - 3)) {
                     return Winner.Yellow;
                 }
@@ -163,8 +152,8 @@ public class Position {
             int score = 0;
 
             //Horizontal
-            for (int i = 0; i < width - 4; i++) {
-                for (int j = 0; j < height; j++) {
+            for (int i = 0; i < WIDTH - 4; i++) {
+                for (int j = 0; j < HEIGHT; j++) {
 
                     int redPotential = 0;
                     int yellowPotential = 0;
@@ -190,8 +179,8 @@ public class Position {
             }
             //vertical
 
-            for (int i = 0; i < width; i++) {
-                for (int j = 0; j < height - 4; j++) {
+            for (int i = 0; i < WIDTH; i++) {
+                for (int j = 0; j < HEIGHT - 4; j++) {
                     int redPotential = (red[i] >> j) & 0x1;
                     int yellowPotential = (yellow[i] >> j) & 0x1;
 
@@ -207,8 +196,8 @@ public class Position {
             }
 
             //Diagonal upward...
-            for (int i = 0; i < width - 4; i++) {
-                for (int j = 0; j < height - 4; j++) {
+            for (int i = 0; i < WIDTH - 4; i++) {
+                for (int j = 0; j < HEIGHT - 4; j++) {
                     int yellowPotential = 0;
                     int redPotential = 0;
                     for (int k = 0; k < 4; k++) {
@@ -231,8 +220,8 @@ public class Position {
             }
 
             //Diagonal downward...
-            for (int i = 0; i < width - 4; i++) {
-                for (int j = height - 1; j > 4; j--) {
+            for (int i = 0; i < WIDTH - 4; i++) {
+                for (int j = HEIGHT - 1; j > 4; j--) {
                     int yellowPotential = 0;
                     int redPotential = 0;
                     for (int k = 0; k < 4; k++) {
