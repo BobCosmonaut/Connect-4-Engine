@@ -171,7 +171,7 @@ public class Position {
                             score += Math.pow(redPotential, 2);
                         } else {
                             //Yellow exculsivly has potential...
-                            score -= Math.pow(redPotential, 2);
+                            score -= Math.pow(yellowPotential, 2);
                         }
 
                     }
@@ -189,7 +189,7 @@ public class Position {
                             score += Math.pow(redPotential, 2);
                         } else {
                             //Yellow exculsivly has potential...
-                            score -= Math.pow(redPotential, 2);
+                            score -= Math.pow(yellowPotential, 2);
                         }
                     }
                 }
@@ -212,7 +212,7 @@ public class Position {
                             if (redPotential > 0) {
                                 score += Math.pow(redPotential, 2);
                             } else {
-                                score += Math.pow(yellowPotential, 2);
+                                score -= Math.pow(yellowPotential, 2);
                             }
                         }
                     }
@@ -236,7 +236,7 @@ public class Position {
                             if (redPotential > 0) {
                                 score += Math.pow(redPotential, 2);
                             } else {
-                                score += Math.pow(yellowPotential, 2);
+                                score -= Math.pow(yellowPotential, 2);
                             }
                         }
                     }
@@ -245,7 +245,6 @@ public class Position {
             return score;
         }
     }
-
 
     public byte[] getRed() {
         return red;
