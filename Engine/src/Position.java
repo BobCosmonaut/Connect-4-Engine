@@ -4,6 +4,16 @@ public class Position {
     public static final int WIDTH = 7, HEIGHT = 6;
     public Winner winner;
 
+
+    /* private byte[] testPositionA = {0, 0, 0, 0x1, 0x2, 0x4, 0x8};
+    private byte[] testPositionB = {0, 0, 0, 0x4, 0x8, 0x10, 0x20};
+
+    private byte[] testPositionC = {0x20, 0x10, 0x8, 0x4, 0, 0, 0};
+    private byte[] testPositionD = {0x1, 0x2, 0x4, 0x8, 0, 0, 0};
+
+    private byte[] testPositionE = {0xf, 0, 0, 0, 0, 0, 0};
+    private byte[] testPositionF = {0x3e, 0, 0, 0, 0, 0, 0}; */
+
     /**
      * Currently only called by Game constructor
      */
@@ -112,9 +122,8 @@ public class Position {
 
 
         //diagonal
-
-        for (int i = 0; i < WIDTH - 4; i++) {
-            for (int j = 0; j < HEIGHT - 4; j++) {
+        for (int i = 0; i < WIDTH - 3; i++) {
+            for (int j = 0; j < HEIGHT - 3; j++) {
                 if (isYellow(i, j) && isYellow(i + 1, j + 1) && isYellow(i + 2, j + 2) && isYellow(i + 3, j + 3)) {
                     return Winner.Yellow;
                 }
@@ -125,7 +134,7 @@ public class Position {
             }
         }
 
-        for (int i = 0; i < WIDTH - 4; i++) {
+        for (int i = 0; i < WIDTH - 3; i++) {
             for (int j = HEIGHT - 1; j > 2; j--) {
                 if (isYellow(i, j) && isYellow(i + 1, j - 1) && isYellow(i + 2, j - 2) && isYellow(i + 3, j - 3)) {
                     return Winner.Yellow;
